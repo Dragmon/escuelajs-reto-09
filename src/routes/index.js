@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const ProductService = require('../services/index');
-const receipt = '../assets/receipt.pdf'
+const receipt = '../assets/receipt.pdf';
 
 const platziStore = (app) => {
   const router = express.Router();
@@ -18,10 +18,39 @@ const platziStore = (app) => {
     res.sendFile(file);
   });
 
-  router.get('/products', async (req, res, next) => {
+  /* router.get('/products', async (req, res, next) => {
     const storeProducts = await productService.getProducts()
-    res.status(200).json(storeProducts);
+    res.status(200).json({
+      data: storeProducts,
+      message: 'products listed'
+    });
+  }); */
+
+  router.get('/products', async (req, res, next) => {
+    try {
+      const storeProducts = await productService.getProducts();
+      res.status(200).json({
+        data: storeProducts,
+        message: 'products listed'
+      });
+    } catch (error) {
+      next(error)
+    }
   });
+
+  router.post('/products', async (req, res, next) => {
+    const { body: product } = req;
+    try {
+      const createProductId = await productService.createProduct({ product });
+      res.status(201).json({
+        data: createProductId,
+        message: 'products created'
+      });
+    } catch (error) {
+      next(error)
+    }
+  });
+
 
   router.get('*', (req, res) => {
     res.status(404).send('Error 404');
