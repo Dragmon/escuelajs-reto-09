@@ -38,6 +38,23 @@ const platziStore = (app) => {
     }
   });
 
+  router.get('/:productId', async (req, res, next) => {
+    const { productId } = req.params;
+    try {
+      const storeProducts = await productService.getProduct(productId);
+      res.status(200).json({
+        data: storeProducts,
+        message: 'products retrive'
+      });
+    } catch (error) {
+      next(error)
+    }
+  });
+  
+  router.get('*', (req, res) => {
+    res.status(404).send('Error 404');
+  });
+
   router.post('/products', async (req, res, next) => {
     const { body: product } = req;
     try {
@@ -49,11 +66,6 @@ const platziStore = (app) => {
     } catch (error) {
       next(error)
     }
-  });
-
-
-  router.get('*', (req, res) => {
-    res.status(404).send('Error 404');
   });
 }
 
