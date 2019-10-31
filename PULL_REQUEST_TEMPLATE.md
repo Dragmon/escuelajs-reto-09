@@ -6,10 +6,12 @@ Nombre: Carlos Gerardo Pérez Horta
 Usuario Platzi: Charlie_Perez
 
 ## Ciudad
-- [] Ciudad de México
+
+- [x] Ciudad de México
 - [] Bogotá
 
 ## Reto:
-  - [X] Primer problema
-  - [X] Segundo problema
-  - [] Tercer problema (Opcional)
+
+- [x] Primer problema
+- [x] Segundo problema
+- [] Tercer problema (Opcional)
